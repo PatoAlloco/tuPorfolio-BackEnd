@@ -7,9 +7,11 @@ import com.tuPorfolio.argentinaprograma.model.SoftSkill;
 import com.tuPorfolio.argentinaprograma.model.Trabajo;
 import com.tuPorfolio.argentinaprograma.model.Usuario;
 import com.tuPorfolio.argentinaprograma.service.IUsuarioService;
+import com.tuPorfolio.argentinaprograma.usuarioDTO.UsuarioDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -239,4 +242,16 @@ public class UsuarioController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    //============REGISTROS Y COMPROBACIONES================//
+    @GetMapping("/actual")
+    public ResponseEntity<UsuarioDTO> getUsuarioActual(Authentication authentication) {
+        return new ResponseEntity<>(this.usuarioService.usuarioPorMail(authentication.getName()), HttpStatus.OK);
+    }
+
+    @PostMapping("/registro")
+    public void saveUsuario(@RequestBody Usuario user) {
+        this.usuarioService.registrarUsuario(user);
+    }
+
 }

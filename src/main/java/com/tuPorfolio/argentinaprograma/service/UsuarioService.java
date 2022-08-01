@@ -7,7 +7,9 @@ import com.tuPorfolio.argentinaprograma.model.SoftSkill;
 import com.tuPorfolio.argentinaprograma.model.Trabajo;
 import com.tuPorfolio.argentinaprograma.model.Usuario;
 import com.tuPorfolio.argentinaprograma.repository.UsuarioRepository;
+import com.tuPorfolio.argentinaprograma.usuarioDTO.UsuarioDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -207,6 +209,14 @@ public class UsuarioService implements IUsuarioService {
     public Usuario borrarHabilidad(Long id, Long idHabilidad) throws Exception {
         this.skillService.borrarHabilidad(idHabilidad);
         return this.getUsuario(id);
+    }
+
+    //=================REGUSTRO Y VALIDACIONES================//
+    @Override
+    public UsuarioDTO usuarioPorMail(String mail){
+        UsuarioDTO usuario = new UsuarioDTO();
+        usuario.setId(this.usuarioRepository.findByMail(mail).getId());
+        return usuario;
     }
 
     private Usuario getUsuario(Long id) throws Exception {

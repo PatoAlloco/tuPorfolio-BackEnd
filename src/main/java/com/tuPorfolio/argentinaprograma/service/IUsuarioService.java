@@ -6,6 +6,7 @@ import com.tuPorfolio.argentinaprograma.model.Proyecto;
 import com.tuPorfolio.argentinaprograma.model.SoftSkill;
 import com.tuPorfolio.argentinaprograma.model.Trabajo;
 import com.tuPorfolio.argentinaprograma.model.Usuario;
+import com.tuPorfolio.argentinaprograma.usuarioDTO.UsuarioDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -57,4 +58,8 @@ public interface IUsuarioService {
     Usuario editarHabilidad(Long id, Long idHabilidad, SoftSkill habilidad) throws Exception;
 
     Usuario borrarHabilidad(Long id, Long idHabilidad) throws Exception;
+
+    Usuario registrarUsuario(Usuario user);
+
+    UsuarioDTO usuarioPorMail(String mail);
 }
