@@ -41,11 +41,6 @@ public class UsuarioService implements IUsuarioService {
         this.encoder = encoder;
     }
 
-    public Usuario registrarUsuario(Usuario usuario) {
-        usuario.setPassword(this.encoder.encode(usuario.getPassword()));
-        return this.usuarioRepository.save(usuario);
-    }
-
     @Override
     public List<Usuario> verUsuarios() {
         return usuarioRepository.findAll();
@@ -53,6 +48,7 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public Usuario crearUsuario(Usuario usuario) {
+        usuario.setPassword(this.encoder.encode(usuario.getPassword()));
         return this.usuarioRepository.save(usuario);
     }
 
@@ -73,10 +69,16 @@ public class UsuarioService implements IUsuarioService {
         }
 
         Usuario u = this.getUsuario(id);
-        usuario.setFotoPortada(u.getFotoPortada());
-        usuario.setFotoPerfil(u.getFotoPerfil());
+        u.setNombre(usuario.getNombre());
+        u.setApellido(usuario.getApellido());
+        u.setMail(usuario.getMail());
+        u.setOcupacion(usuario.getOcupacion());
+        u.setSobreMi(usuario.getSobreMi());
+        u.setNacimiento(usuario.getNacimiento());
+        u.setCiudad(usuario.getCiudad());
+        u.setProvincia(usuario.getProvincia());
 
-        return this.usuarioRepository.save(usuario);
+        return this.usuarioRepository.save(u);
     }
 
     @Override

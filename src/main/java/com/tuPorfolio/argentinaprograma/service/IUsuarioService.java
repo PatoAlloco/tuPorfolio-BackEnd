@@ -59,7 +59,5 @@ public interface IUsuarioService {
 
     Usuario borrarHabilidad(Long id, Long idHabilidad) throws Exception;
 
-    Usuario registrarUsuario(Usuario user);
-
     UsuarioDTO usuarioPorMail(String mail);
 }

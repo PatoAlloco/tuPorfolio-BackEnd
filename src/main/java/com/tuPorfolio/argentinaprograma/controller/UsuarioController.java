@@ -248,9 +248,4 @@ public class UsuarioController {
         return new ResponseEntity<>(this.usuarioService.usuarioPorMail(authentication.getName()), HttpStatus.OK);
     }
 
-    @PostMapping("/registro")
-    public void saveUsuario(@RequestBody Usuario user) {
-        this.usuarioService.registrarUsuario(user);
-    }
-
 }
