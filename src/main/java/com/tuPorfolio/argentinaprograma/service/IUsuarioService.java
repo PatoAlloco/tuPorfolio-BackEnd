@@ -15,7 +15,7 @@ public interface IUsuarioService {
 
     List<Usuario> verUsuarios();
 
-    Usuario crearUsuario(Usuario usuario);
+    Usuario crearUsuario(Usuario usuario) throws Exception;
 
     void borrarUsuario(Long id);
 

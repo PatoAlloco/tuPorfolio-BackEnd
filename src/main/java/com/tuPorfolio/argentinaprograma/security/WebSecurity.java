@@ -39,6 +39,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         httpSecurity.addFilterBefore(new CorsFilter(), ChannelProcessingFilter.class);
         httpSecurity
                 .csrf().disable().authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/usuario/registro").permitAll()
 
                 .anyRequest().authenticated().and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))

@@ -9,7 +9,6 @@ import com.tuPorfolio.argentinaprograma.model.Usuario;
 import com.tuPorfolio.argentinaprograma.repository.UsuarioRepository;
 import com.tuPorfolio.argentinaprograma.usuarioDTO.UsuarioDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -47,8 +46,12 @@ public class UsuarioService implements IUsuarioService {
     }
 
     @Override
-    public Usuario crearUsuario(Usuario usuario) {
+    public Usuario crearUsuario(Usuario usuario) throws Exception {
+        if (validarMail(usuario.getMail())){
+            throw new Exception("El mail ingresado ya existe");
+        }
         usuario.setPassword(this.encoder.encode(usuario.getPassword()));
+        usuario.setMail(usuario.getMail().toLowerCase());
         return this.usuarioRepository.save(usuario);
     }
 
@@ -239,5 +242,9 @@ public class UsuarioService implements IUsuarioService {
         }
 
         return u;
+    }
+
+    private boolean validarMail(String mail) {
+        return this.usuarioRepository.getByMail(mail.toLowerCase()).isPresent();
     }
 }

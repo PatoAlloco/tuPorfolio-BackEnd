@@ -50,9 +50,14 @@ public class UsuarioController {
     }
 
     //lo utilizo la primera vez cuando creo el primer usuario con los atributos del constructor que cree
-    @PostMapping()
-    public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario) {
-        return new ResponseEntity<>(this.usuarioService.crearUsuario(usuario), HttpStatus.OK);
+    @PostMapping("/registro")
+    public ResponseEntity<?> crearUsuario(@RequestBody Usuario usuario) {
+        try {
+            return new ResponseEntity<>(this.usuarioService.crearUsuario(usuario), HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/{id}")
