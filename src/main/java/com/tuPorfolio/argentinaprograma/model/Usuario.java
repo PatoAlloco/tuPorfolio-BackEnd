@@ -21,7 +21,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "usuario")
-public class Usuario implements UserDetails {
+public class Usuario implements UserDetails {   //implementa esa interface para el uso del token
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -35,7 +35,7 @@ public class Usuario implements UserDetails {
     private String ciudad;
     private String provincia;
     @OneToOne
-    @JsonIgnore
+    @JsonIgnore   //para que no me lo devuelva cuando hago un get a usuario
     private Foto fotoPerfil;
     @OneToOne
     @JsonIgnore
@@ -44,7 +44,7 @@ public class Usuario implements UserDetails {
     @JoinColumn(name = "usuario_id")
     private List<Educacion> estudios;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "usuario_id")        //evitar tabla intermedia, para manejar como hibernate relaciona entre tablas
     private List<Trabajo> trabajos;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id")
@@ -116,13 +116,13 @@ public class Usuario implements UserDetails {
         this.sobreMi = sobreMi;
     }
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)             //metodos de la interface
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)      //el write only es para que no lo muestre
     public String getPassword() {
         return password;
     }

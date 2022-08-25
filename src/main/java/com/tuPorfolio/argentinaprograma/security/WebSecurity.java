@@ -36,16 +36,16 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.addFilterBefore(new CorsFilter(), ChannelProcessingFilter.class);
+        httpSecurity.addFilterBefore(new CorsFilter(), ChannelProcessingFilter.class); //permito que pasen las peticiones OPTIONS
         httpSecurity
                 .csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/usuario/registro").permitAll()
+                .antMatchers(HttpMethod.POST, "/usuario/registro").permitAll() //permito post sin token
 
-                .anyRequest().authenticated().and()
+                .anyRequest().authenticated().and()                    //filtra todas las peticiones para validar toke
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 .exceptionHandling()
-                .authenticationEntryPoint(this.restAuthEntryPoint).and()
+                .authenticationEntryPoint(this.restAuthEntryPoint).and()     //si no pasa sale con error 401
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         HeadersConfigurer<HttpSecurity> headers = httpSecurity.headers();

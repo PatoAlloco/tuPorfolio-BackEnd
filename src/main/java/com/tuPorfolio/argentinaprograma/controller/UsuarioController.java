@@ -36,7 +36,7 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    //esto practicamente no lo voy a usar
+
     @GetMapping()
     @ResponseBody
     public List<Usuario> verUsuarios() {
@@ -109,7 +109,6 @@ public class UsuarioController {
         }
     }
 
-    //edito usuario foto de perfil
     @GetMapping("/{id}/foto-perfil")
     public ResponseEntity<Foto> obtenerFotoPerfil(@PathVariable Long id) {
         try {

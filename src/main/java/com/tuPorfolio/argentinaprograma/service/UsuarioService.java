@@ -71,7 +71,7 @@ public class UsuarioService implements IUsuarioService {
             throw new Exception("No coincide los id");
         }
 
-        Usuario u = this.getUsuario(id);
+        Usuario u = this.getUsuario(id);    //lo hago asi para que no se pise la info con algun campo vacio
         u.setNombre(usuario.getNombre());
         u.setApellido(usuario.getApellido());
         u.setMail(usuario.getMail());
@@ -218,7 +218,7 @@ public class UsuarioService implements IUsuarioService {
 
     //=================REGUSTRO Y VALIDACIONES================//
     @Override
-    public UsuarioDTO usuarioPorMail(String mail){
+    public UsuarioDTO usuarioPorMail(String mail){     //devuelvo un dto que tiene el id
         UsuarioDTO usuario = new UsuarioDTO();
         usuario.setId(this.usuarioRepository.findByMail(mail).getId());
         return usuario;
