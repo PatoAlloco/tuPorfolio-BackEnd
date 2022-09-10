@@ -1,7 +1,10 @@
 package com.tuPorfolio.argentinaprograma.model;
 
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Foto {
@@ -13,8 +16,6 @@ public class Foto {
     private String nombre;
     private String mime;
 
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
     private byte[] contenido;
 
     public Foto() {}

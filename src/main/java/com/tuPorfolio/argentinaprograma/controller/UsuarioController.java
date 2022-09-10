@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -43,6 +44,7 @@ public class UsuarioController {
         return usuarioService.verUsuarios();
     }
 
+    @org.springframework.transaction.annotation.Transactional
     @GetMapping("/{id}")
     @ResponseBody
     public ResponseEntity<Usuario> verUsuario(@PathVariable Long id) {
